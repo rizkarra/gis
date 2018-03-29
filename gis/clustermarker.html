@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Latihan Google Map API</title>
+        <style>
+            #map {
+                background-color: gray;
+                width: 100%;
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+    </body>
+    <script>
+        function initMap(){
+				var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 10,
+				center: {lat: -5.400549, lng: 105.266272}
+			  });
+			  var infoWin = new google.maps.InfoWindow();
+            // console.log(map);
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+            var markers = locations.map(function(location, i) {
+                var marker = new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+				 google.maps.event.addListener(marker, 'click', function(evt) {
+				  infoWin.setContent(location.info);
+				  infoWin.open(map, marker);
+				})
+				return marker;
+                }); 
+            console.log(locations);
+            console.log(markers);
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'images/m'});
+        
+            var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+            console.log(markerCluster.getCalculator());
+            // var marker=new google.maps.Marker({position:center,map:map});
+            // console.log(marker);
+        }
+
+        var locations = [
+		{lat: -5.393262, 	lng: 105.243990, info: "Perumah Cluster Alam Intan"},
+		{lat:  -5.381088, 	lng: 105.259291, info: "Perumah Cluster Pujangga Alam Garden" },
+        {lat: -5.410059, 	lng: 105.199487, info: "Perumah Cluster Green Kemiling Residence"},
+        {lat: -5.412074, 	lng: 105.193907, info: "Perumah Cluster Griya Cempaka Permai I Plus"},
+        {lat: -5.384036, 	lng: 105.210944, info: "Perumah Cluster Springhill"},
+        {lat: -5.384150, 	lng: 105.210531, info: "Perumah Cluster Harmonia Residence"},
+        {lat:  -5.408749, 	lng: 105.197527, info: "Perumah Cluster Villa Jasmine "},
+        {lat: -5.383229, 	lng: 105.209970, info: "Perumah Cluster Citra Mas"},
+        {lat:  -5.376364, 	lng: 105.265167, info: "Perumah Cluster Palmira Residence"},
+        {lat: -5.367956, 	lng: 105.255920, info: "Perumah Cluster Perumahan Taman Suropati"},
+        {lat: -5.381886, 	lng: 105.224444, info: "Perumah Cluster Bukit Pramuka III"},
+        {lat:  -5.393053, 	lng: 105.232328, info: "Perumah Cluster Griya Resik Segalaminder"},
+        {lat: -5.375616, 	lng: 105.226917, info: "Perumah Cluster Pramuka Garden Residence"},
+		{lat: -5.369890, 	lng: 105.219924, info: "Perumah Cluster Casalira Residence"},
+		{lat: -5.347627, 	lng: 105.253320, info: "Perumah Cluster Cahaya Alam Permai"},
+		{lat: -5.362788, 	lng: 105.232992, info: "Perumah Cluster Raffles Residence"},
+		{lat: -5.366477, 	lng: 105.220986, info: "Perumah Cluster Rubicon Estate I"},
+		{lat:  -5.341225,	lng: 105.248796, info: "Perumah Cluster Puspita Residence"},
+		{lat: -5.345190,	 lng: 105.243821, info: "Perumah Cluster Rajabasa Harmony"},
+// {lat: -5.347924, lng: 145.128708}, -5.347924, 105.242523
+// {lat: -37.759859, lng: 145.128708}
+  
+      ]
+    </script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqIy-vX5tDUpnN5EUuIVG5fNeEuHWm3q4&callback=initMap"></script>
+    <script src="src/markerclusterer.js">
+    </script>
+</html>
